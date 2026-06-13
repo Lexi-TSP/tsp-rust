@@ -1,0 +1,24 @@
+{
+  "artifact": "tsp.license.v1",
+  "specMaturity": "TSP Spec 1.0 Candidate",
+  "description": "Per-vector conformance expectations for the TSP License Artifact v1 suite (ADR-0010). SEPARATE from the v3.0 TrustEnvelope suite (expectations.json) and its SHA256SUMS — a license is a sibling artifact and is never mixed into the envelope vectors. Reasons match verify_license()'s closed vocabulary. The pinned root is fixtures/license-v1/license-root-key.json; `now` is the verifier clock per vector; `origin` is the gateway's configured trust-manifest origin; `requiredModules` is what the gated feature demands (default-deny).",
+  "rootKey": "license-root-key.json",
+  "vectors": [
+    { "file": "valid-pro.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": true, "reason": "valid" }, "note": "Reference good license: license -> issuer -> pinned root all verify offline." },
+    { "file": "valid-pro.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://staging.customer.example", "expect": { "ok": true, "reason": "valid" }, "note": "subject.allowedOrigins permits a staging origin." },
+    { "file": "valid-pro.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://evil.example", "expect": { "ok": false, "reason": "origin_mismatch" }, "note": "Per-origin binding: a configured origin outside subject origin(s) fails closed." },
+    { "file": "valid-pro.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "requiredModules": ["gateway-pro"], "expect": { "ok": true, "reason": "valid" }, "note": "Licensed module satisfies the gate." },
+    { "file": "valid-pro.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "requiredModules": ["enterprise-policy"], "expect": { "ok": false, "reason": "module_not_licensed" }, "note": "Default-deny per feature: an unlicensed module fails closed." },
+    { "file": "valid-pro.json", "now": "2026-06-05T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "license_not_yet_valid" }, "note": "now before license.validFrom." },
+    { "file": "valid-pro.json", "now": "2026-10-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "license_expired" }, "note": "Hard expiry: past validUntil with no signed grace fails closed." },
+    { "file": "valid-pro.json", "now": "2027-01-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "issuer_expired" }, "note": "Issuer window checked before license window: an expired issuer credential fails closed first." },
+    { "file": "valid-trial.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": true, "reason": "valid" }, "note": "Trial edition, single module." },
+    { "file": "in-grace.json", "now": "2026-06-10T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": true, "reason": "valid_in_grace" }, "note": "Signed-only grace: past validUntil but inside graceUntil verifies, flagged in_grace." },
+    { "file": "in-grace.json", "now": "2026-06-25T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "license_expired" }, "note": "Past graceUntil fails closed; the verifier never invents grace." },
+    { "file": "tampered-license.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "license_signature_invalid" }, "note": "License body mutated after issuer signing." },
+    { "file": "untrusted-root.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "untrusted_root" }, "note": "Issuer credential references a root not in the pinned set." },
+    { "file": "issuer-cred-tampered.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "issuer_credential_invalid" }, "note": "Issuer credential body mutated after root signing." },
+    { "file": "issuer-mismatch.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "issuer_mismatch" }, "note": "license.issuer_id does not match credential.issuer_id though both signatures are valid." },
+    { "file": "schema-invalid.json", "now": "2026-07-01T00:00:00.000Z", "origin": "https://customer.example", "expect": { "ok": false, "reason": "schema_invalid" }, "note": "Closed allowlist rejects an injected unknown field before any signature work." }
+  ]
+}

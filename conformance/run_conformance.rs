@@ -1,14 +1,15 @@
-//! TSP v3.0 conformance runner for the Rust port.
+//! TSP conformance runner for the Rust port.
 //!
-//! Runs the checksum-pinned tsp-spec fixture suite through this port and asserts
-//! the normative per-vector profiles from expectations.json. Exit 0 only if the
-//! snapshot is intact AND every vector matches. A failure here means THIS PORT
-//! is wrong (ADR-0008) -- fix the port, never the fixtures.
-use serde_json::Value;
+//! Runs the checksum-pinned tsp-spec fixture suites through this port: the v3.0
+//! TrustEnvelope vectors AND the tsp.license.v1 vectors (ADR-0010), each a
+//! SEPARATE checksum-pinned track, never mixed. Exit 0 only if every snapshot is
+//! intact AND every vector matches. A failure here means THIS PORT is wrong
+//! (ADR-0008) -- fix the port, never the fixtures.
+use serde_json::{Map, Value};
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
 use std::process::exit;
-use tsp_verify::{canonicalize, sha256_hex, validate_trust_envelope_shape, verify_local};
+use tsp_verify::{canonicalize, sha256_hex, validate_trust_envelope_shape, verify_license, verify_local};
 
 fn snapshot_dir() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("conformance").join("spec-snapshot")
@@ -27,9 +28,9 @@ fn sha256_file_hex(path: &Path) -> std::io::Result<String> {
     Ok(h.finalize().iter().map(|b| format!("{:02x}", b)).collect())
 }
 
-fn verify_snapshot_integrity(snapshot: &Path) -> (usize, Vec<String>) {
-    let sums_path = snapshot.join("fixtures").join("v3.0").join("SHA256SUMS");
-    let sums = std::fs::read_to_string(&sums_path).expect("read SHA256SUMS");
+/// Verify a SHA256SUMS file; relative paths are resolved against `snapshot`.
+fn verify_sums(snapshot: &Path, sums_path: &Path) -> (usize, Vec<String>) {
+    let sums = std::fs::read_to_string(sums_path).expect("read SHA256SUMS");
     let mut mismatches = Vec::new();
     let mut count = 0usize;
     for line in sums.lines() {
@@ -189,8 +190,36 @@ fn run_vector(fixtures: &Path, vec: &Value) -> Vec<String> {
     fails
 }
 
+fn run_license_vector(fixtures: &Path, vector: &Value, roots: &Value) -> Vec<String> {
+    let file = vector["file"].as_str().unwrap();
+    let bundle = read_json(&fixtures.join(file));
+    let mut config = Map::new();
+    config.insert("origin".into(), vector["origin"].clone());
+    config.insert("trustedRootKeys".into(), roots.clone());
+    config.insert(
+        "requiredModules".into(),
+        vector.get("requiredModules").cloned().unwrap_or(Value::Array(Vec::new())),
+    );
+    let now = vector["now"].as_str().unwrap();
+    let result = verify_license(&bundle, &Value::Object(config), now).expect("license verify config");
+    let mut fails = Vec::new();
+    if result["ok"] != vector["expect"]["ok"] {
+        fails.push(format!(
+            "ok: expected {}, got {} ({}: {})",
+            vector["expect"]["ok"], result["ok"], result["reason"], result["detail"]
+        ));
+    }
+    if result["reason"] != vector["expect"]["reason"] {
+        fails.push(format!("reason: expected {}, got {}", vector["expect"]["reason"], result["reason"]));
+    }
+    fails
+}
+
 fn main() {
     let snapshot = snapshot_dir();
+    let mut failed = 0;
+
+    // ----- v3.0 TrustEnvelope suite -----
     let fixtures = snapshot.join("fixtures").join("v3.0");
     let spec = read_json(&snapshot.join("expectations.json"));
     println!(
@@ -198,19 +227,16 @@ fn main() {
         spec["tsp"].as_str().unwrap_or("?"),
         spec["specMaturity"].as_str().unwrap_or("?")
     );
-
-    let (count, mismatches) = verify_snapshot_integrity(&snapshot);
+    let (count, mismatches) = verify_sums(&snapshot, &fixtures.join("SHA256SUMS"));
     if !mismatches.is_empty() {
-        println!("snapshot integrity FAILED ({}/{count}):", mismatches.len());
+        println!("v3.0 snapshot integrity FAILED ({}/{count}):", mismatches.len());
         for m in &mismatches {
             println!("    {m}");
         }
         exit(1);
     }
-    println!("integrity: {count} fixtures match pinned SHA256SUMS");
-
+    println!("integrity: {count} v3.0 fixtures match pinned SHA256SUMS");
     let vectors = spec["vectors"].as_array().unwrap();
-    let mut failed = 0;
     for vec in vectors {
         let fails = run_vector(&fixtures, vec);
         let file = vec["file"].as_str().unwrap();
@@ -226,10 +252,42 @@ fn main() {
         }
     }
 
+    // ----- TSP License Artifact v1 suite (ADR-0010; separate track) -----
+    let license_fixtures = snapshot.join("fixtures").join("license-v1");
+    let lic = read_json(&snapshot.join("license-expectations.json"));
+    println!("\nlicense conformance -- artifact \"{}\"", lic["artifact"].as_str().unwrap_or("?"));
+    let (lcount, lmis) = verify_sums(&snapshot, &license_fixtures.join("SHA256SUMS"));
+    if !lmis.is_empty() {
+        println!("license snapshot integrity FAILED ({}/{lcount}):", lmis.len());
+        for m in &lmis {
+            println!("    {m}");
+        }
+        exit(1);
+    }
+    println!("integrity: {lcount} license fixtures match pinned SHA256SUMS");
+    let root_file = read_json(&license_fixtures.join(lic["rootKey"].as_str().unwrap()));
+    let roots = serde_json::json!([{ "rootKeyId": root_file["rootKeyId"], "publicKey": root_file["publicKey"] }]);
+    let lvectors = lic["vectors"].as_array().unwrap();
+    for vector in lvectors {
+        let fails = run_license_vector(&license_fixtures, vector, &roots);
+        let file = vector["file"].as_str().unwrap();
+        let reason = vector["expect"]["reason"].as_str().unwrap_or("?");
+        if fails.is_empty() {
+            println!("PASS  {file}  [{reason}]");
+        } else {
+            failed += 1;
+            println!("FAIL  {file}  [{reason}]");
+            for f in &fails {
+                println!("        {f}");
+            }
+        }
+    }
+
+    let total = vectors.len() + lvectors.len();
     if failed == 0 {
-        println!("\nall {} conformance vectors pass against the Rust port", vectors.len());
+        println!("\nall {total} conformance vectors pass against the Rust port");
         exit(0);
     }
-    println!("\n{failed}/{} vectors diverge -- this port is wrong until fixed (ADR-0008)", vectors.len());
+    println!("\n{failed}/{total} vectors diverge -- this port is wrong until fixed (ADR-0008)");
     exit(1);
 }

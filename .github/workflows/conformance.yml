@@ -1,6 +1,7 @@
 name: Conformance
 
-# Runs the tsp-spec v3.0 fixture suite through this Rust port. Goes red on any
+# Runs the tsp-spec fixture suites through this Rust port: the v3.0 TrustEnvelope
+# vectors AND the tsp.license.v1 vectors (ADR-0010), separate pinned tracks. Goes red on any
 # port/spec divergence or fixture-snapshot drift. This port is auditable, not
 # normative — normative authority is Lexi-TSP/tsp-spec (ADR-0008). A failure
 # here is a bug in this port, never grounds to adjust the fixtures.
@@ -21,7 +22,7 @@ concurrency:
 
 jobs:
   fixtures:
-    name: v3.0 fixture conformance
+    name: fixture conformance (v3.0 + license)
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -32,5 +33,5 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Run v3.0 fixture conformance
+      - name: Run fixture conformance (v3.0 + license)
         run: cargo run --quiet --bin conformance

@@ -10,7 +10,10 @@ pub mod crypto;
 pub mod domains;
 pub mod hash;
 pub mod manifest;
+pub mod license_domain;
+pub mod license_schema;
 pub mod schema;
+pub mod verify_license;
 pub mod verify_local;
 
 pub use canonical::canonicalize;
@@ -18,3 +21,5 @@ pub use hash::sha256_hex;
 pub use manifest::validate_trust_manifest;
 pub use schema::validate_trust_envelope_shape;
 pub use verify_local::verify_local;
+pub use license_schema::validate_license_bundle_shape;
+pub use verify_license::verify_license;

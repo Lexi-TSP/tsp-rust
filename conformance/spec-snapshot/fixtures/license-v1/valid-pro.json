@@ -1,0 +1,49 @@
+{
+  "artifact_type": "tsp.license-bundle.v1",
+  "license": {
+    "artifact_type": "tsp.license.v1",
+    "license_id": "lic-2026-0001",
+    "issuer_id": "tsp-license-issuer-2026-q3",
+    "subject": {
+      "origin": "https://customer.example",
+      "allowedOrigins": [
+        "https://staging.customer.example"
+      ],
+      "organization": "Example Customer AS"
+    },
+    "edition": "pro",
+    "modules": [
+      "gateway-pro",
+      "audit-export"
+    ],
+    "issuedAt": "2026-06-13T00:00:00.000Z",
+    "validFrom": "2026-06-13T00:00:00.000Z",
+    "validUntil": "2026-09-11T00:00:00.000Z"
+  },
+  "licenseSignature": {
+    "algorithm": "ed25519",
+    "signature": "+UGrtan8IrFc19JhfaScQ1tBK0BYjqsLbUGntyabFUpcrEbGZa08Lfegw3pW3pmky5qt1nr+bGSqKeJkx8Z4BQ=="
+  },
+  "issuerCredential": {
+    "credential": {
+      "artifact_type": "tsp.license-issuer-credential.v1",
+      "issuer_id": "tsp-license-issuer-2026-q3",
+      "issuerPublicKey": {
+        "crv": "Ed25519",
+        "ext": true,
+        "key_ops": [
+          "verify"
+        ],
+        "kty": "OKP",
+        "x": "dTyb2ZEwB-bydpJbWBhIINjRv8FTJ9-zBpVfrow3Z1I"
+      },
+      "validFrom": "2026-01-01T00:00:00.000Z",
+      "validUntil": "2026-12-01T00:00:00.000Z",
+      "rootKeyId": "tsp-license-root-2026"
+    },
+    "rootSignature": {
+      "algorithm": "ed25519",
+      "signature": "u5X6dSyPPyUUIg//+B2bYKGNh4gkMwdL6/nN/wlk64DKmfK3cBWwS7EjywGZQAPG1jdRVAaF5uuX8lWEvoGxBA=="
+    }
+  }
+}
