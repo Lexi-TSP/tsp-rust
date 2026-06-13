@@ -1,0 +1,36 @@
+name: Conformance
+
+# Runs the tsp-spec v3.0 fixture suite through this Rust port. Goes red on any
+# port/spec divergence or fixture-snapshot drift. This port is auditable, not
+# normative — normative authority is Lexi-TSP/tsp-spec (ADR-0008). A failure
+# here is a bug in this port, never grounds to adjust the fixtures.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: conformance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fixtures:
+    name: v3.0 fixture conformance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run v3.0 fixture conformance
+        run: cargo run --quiet --bin conformance

@@ -1,0 +1,59 @@
+{
+    "tsp" :   "3.0" ,
+
+  "content" : {
+       "hash" : "e0e2908bb9622d99d3000b0bb1d087fe08a55ed9938b8eb8ee8ee2efcde9989b" ,
+    "type" : "text" ,
+    "value" : "This is a mathematically verified minimal output."
+  } ,
+
+  "declaration": {
+    "citations": [],
+    "primarySource": {
+      "retrieved": "2026-05-29T01:19:45.000Z",
+      "title": "TSP Spec Fixture",
+      "type": "official-document",
+      "url": "https://truststandardprotocol.com/spec"
+    }
+  },
+  "alignment": {
+    "humanReviewRequired": false,
+    "policy": {
+      "version": "1.0",
+      "id": "default"
+    },
+    "uncertainty": []
+  },
+     "ledger" : {
+    "hash" : "f3b149b5c2a1e8a349b1a590a2a1a8f9c3e1d900bbd2efcde98b5ca1b2345d7d" ,
+       "id" : "0192d847-c373-7729-bb88-2efcde989b5c" ,
+    "prevHash" : "0000000000000000000000000000000000000000000000000000000000000000"
+  } ,
+  "process" : {
+    "model" : {
+      "contextWindow": 2048,
+      "name" : "example-model" ,
+      "provider" : "example-corp" ,
+      "temperature": 0,
+      "version" : "1.0"
+    },
+    "systemPrompt": {
+      "text": "System prompt placeholder",
+      "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "signatures": [
+    {
+      "algorithm": "ed25519",
+      "certChain": [],
+      "keyRef": "https://truststandardprotocol.com/.well-known/tsp-manifest.json#lexico-public-alpha-i1",
+      "role": "instance",
+      "signature": "MC4CAQAwBQYDK2VwBCIEIPk3nK46G... (mock Ed25519 signature representation)"
+    }
+  ],
+  "timestamp": {
+    "tsaUrl": "https://placeholder.invalid/phase1",
+    "claimed": "2026-05-29T01:19:45.000Z",
+    "tsaToken": "__phase1__"
+  }
+}

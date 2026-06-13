@@ -1,0 +1,22 @@
+[package]
+name = "tsp-verify"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "Rust port of the Trust Standard Protocol (TSP) v3.0 reference verifier core: canonicalization, trust envelope and manifest validation, Ed25519 local verification."
+license = "Apache-2.0"
+repository = "https://github.com/Lexi-TSP/tsp-rust"
+homepage = "https://truststandardprotocol.com"
+keywords = ["tsp", "trust", "provenance", "verification", "ed25519"]
+categories = ["cryptography"]
+
+[dependencies]
+serde_json = "1"
+sha2 = "0.10"
+ed25519-dalek = "2"
+base64 = "0.22"
+regex = "1"
+
+[[bin]]
+name = "conformance"
+path = "conformance/run_conformance.rs"

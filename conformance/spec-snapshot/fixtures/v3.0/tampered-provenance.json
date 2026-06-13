@@ -1,0 +1,78 @@
+{
+  "tsp": "3.0",
+  "content": {
+    "type": "text",
+    "value": "This output carries signed execution provenance.",
+    "hash": "17947ffa6c3e9393012ab78445e453c70ee326eebf951e6fa940236dece717d3"
+  },
+  "declaration": {
+    "primarySource": {
+      "type": "official-document",
+      "title": "TSP Spec Fixture",
+      "url": "https://truststandardprotocol.com/spec",
+      "retrieved": "2026-06-10T00:00:00.000Z"
+    },
+    "citations": []
+  },
+  "process": {
+    "model": {
+      "provider": "example-corp",
+      "name": "example-model",
+      "version": "1.0",
+      "temperature": 0,
+      "contextWindow": 2048
+    },
+    "systemPrompt": {
+      "hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "text": "System prompt placeholder"
+    }
+  },
+  "alignment": {
+    "uncertainty": [],
+    "humanReviewRequired": false,
+    "policy": {
+      "id": "default",
+      "version": "1.0"
+    }
+  },
+  "timestamp": {
+    "claimed": "2026-06-10T00:00:00.000Z",
+    "tsaToken": "__phase1__",
+    "tsaUrl": "https://placeholder.invalid/phase1"
+  },
+  "ledger": {
+    "id": "019eb088-a519-79f7-bd92-5bd3506e46d3",
+    "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hash": "79373524092e25d82c19e018dda4c85afc7cf79543678ded2776272d4e8080fd"
+  },
+  "signatures": [
+    {
+      "role": "instance",
+      "algorithm": "ed25519",
+      "keyRef": "https://fixtures.truststandardprotocol.test/.well-known/tsp-manifest.json#fixture-v3-i2",
+      "signature": "e4ZxXnKzJBEep5v5B7aySoKeEf6N9FMDc1Guv2HiV51bi2medR2g26ynw6ATPV7F93O1IjhxWZhGQChIALpqAA==",
+      "certChain": []
+    }
+  ],
+  "executionProvenance": {
+    "spatialBoundary": {
+      "gateway": "fixture-gateway",
+      "toolsMounted": [
+        "search",
+        "calculator"
+      ],
+      "toolsIsolated": true,
+      "o1ConstraintMet": true
+    },
+    "temporalBoundary": {
+      "engine": "fixture-engine",
+      "tier1AnchorHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "totalContextTokens": 4096,
+      "driftDetected": true
+    },
+    "deterministicOutput": {
+      "status": "deterministic",
+      "payloadHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  }
+}

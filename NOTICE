@@ -1,0 +1,7 @@
+tsp-verify (Rust port of the TSP v3.0 reference verifier core)
+Copyright 2026 LexiCo AS (Tønsberg, Norway)
+
+This product includes software developed at LexiCo AS. Semantics ported from
+the Trust Standard Protocol reference implementation
+(github.com/Lexi-TSP/Trust-Standard-Protocol, Apache-2.0); conformance is
+proven against the fixtures of github.com/Lexi-TSP/tsp-spec.

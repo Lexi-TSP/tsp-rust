@@ -1,0 +1,40 @@
+{
+  "tsp": "3.0",
+  "organization": {
+    "name": "TSP Fixture Authority",
+    "domain": "fixtures.truststandardprotocol.test"
+  },
+  "rootKey": {
+    "crv": "Ed25519",
+    "ext": true,
+    "key_ops": [
+      "verify"
+    ],
+    "kty": "OKP",
+    "x": "zTM6zg02f_MbN3D_wEmEevxaBbskzGjlbkAXID5db9c"
+  },
+  "instances": [
+    {
+      "id": "fixture-v3-i1",
+      "publicKey": {
+        "crv": "Ed25519",
+        "ext": true,
+        "key_ops": [
+          "verify"
+        ],
+        "kty": "OKP",
+        "x": "BXI_E9J9KU6_PyOZXQz4sPzqi3xiRPa40NbGww9kI34"
+      },
+      "validFrom": "2026-05-14T00:00:00.000Z",
+      "validUntil": "2027-05-14T00:00:00.000Z",
+      "rootSignature": "mock-signature-over-instance-key"
+    }
+  ],
+  "revoked": [],
+  "sequence": 1,
+  "issuedAt": "2026-05-14T20:52:06.038Z",
+  "acceptableAge": {
+    "seconds": 2592000
+  },
+  "rootSignatureOverManifest": "mock-signature-over-manifest"
+}

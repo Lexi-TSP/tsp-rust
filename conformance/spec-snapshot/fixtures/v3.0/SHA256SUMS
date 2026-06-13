@@ -1,0 +1,10 @@
+d8fc7bba84c7ad0d59c8ce64560077f4349cb17e58c1e7093bdfa5a183674218  fixtures/v3.0/fixture-manifest.json
+86c0c69b25065a421fd6c93a75630f125801dba61f15afe5d5dbdadf453b02eb  fixtures/v3.0/invalid-canonical-sort.json
+4659b950302159673945f39e3126e035b14c0db63d0d2f8857ac4e1970f44e0f  fixtures/v3.0/invalid-number-format.json
+4ab1b25c419d6dcb7fde6601ce915b9ef598df17820e28634a1f3f2e7d233de5  fixtures/v3.0/tampered-provenance.json
+4160ece3fc435d19012107dff7ec207e39a42db9de560c4690d37eae20d2a87f  fixtures/v3.0/valid-minimal.json
+56e712fe985d76ddf1200c1517744ebb03143110d3c0140714158d9c34793bd4  fixtures/v3.0/valid-signed-key.json
+24ca94341e2fed8dfcfa918542841938d7999b8af2d2d56a5f35ddc29f0456f9  fixtures/v3.0/valid-signed.json
+e6d160a02d3babc80a4f7f2434a867c62762e103298b6067041211aae90047a3  fixtures/v3.0/valid-whitespace-mutation.json
+b56618e760e34a7a4bc79c19e542be936604e45ac5f5bd3b3c7d21438d4ca696  fixtures/v3.0/valid-with-provenance-key.json
+b0630044d21684a8121041653272f1147550a7aebf55e8b9424d87daf177e254  fixtures/v3.0/valid-with-provenance.json

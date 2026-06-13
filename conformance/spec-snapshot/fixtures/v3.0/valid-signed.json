@@ -1,0 +1,57 @@
+{
+  "tsp": "3.0",
+  "content": {
+    "type": "text",
+    "value": "This is a mathematically verified minimal output.",
+    "hash": "00e0ba9a15ab56bd3a27c2829910511c9e50a0fc6b62d7e27da4d87a7acd86de"
+  },
+  "declaration": {
+    "primarySource": {
+      "type": "official-document",
+      "title": "TSP Spec Fixture",
+      "url": "https://truststandardprotocol.com/spec",
+      "retrieved": "2026-05-15T00:00:00.000Z"
+    },
+    "citations": []
+  },
+  "process": {
+    "model": {
+      "provider": "example-corp",
+      "name": "example-model",
+      "version": "1.0",
+      "temperature": 0,
+      "contextWindow": 2048
+    },
+    "systemPrompt": {
+      "hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "text": "System prompt placeholder"
+    }
+  },
+  "alignment": {
+    "uncertainty": [],
+    "humanReviewRequired": false,
+    "policy": {
+      "id": "default",
+      "version": "1.0"
+    }
+  },
+  "timestamp": {
+    "claimed": "2026-05-15T00:00:00.000Z",
+    "tsaToken": "__phase1__",
+    "tsaUrl": "https://placeholder.invalid/phase1"
+  },
+  "ledger": {
+    "id": "019e830f-bf78-7f0c-b013-dea5840fed8f",
+    "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hash": "5021617b0047e2fdfe075c82f253c78417b1da7265f8edea5c67a933759a5232"
+  },
+  "signatures": [
+    {
+      "role": "instance",
+      "algorithm": "ed25519",
+      "keyRef": "https://fixtures.truststandardprotocol.test/.well-known/tsp-manifest.json#fixture-v3-i1",
+      "signature": "YPah3QgUiAwmZm83x7CYZ8u6qE49zrQfq+EjgbeJwwCQlaek90i3Sg29AupO1z++aTDbVnlhR//8kyBNZIIEDA==",
+      "certChain": []
+    }
+  ]
+}

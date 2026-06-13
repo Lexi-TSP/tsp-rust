@@ -1,0 +1,63 @@
+{
+  "tsp": "3.0",
+  "specMaturity": "TSP Spec 1.0 Candidate",
+  "description": "Per-vector conformance expectations for the TSP v3.0 fixture suite. Check names (schema, contentHash, ledgerHash, signatures) and statuses (passed/failed/skipped) match the reference verifier's verifyLocal() vocabulary. Each vector exercises a distinct normative property; see 'kind'.",
+  "vectors": [
+    {
+      "file": "valid-signed.json",
+      "kind": "cryptographic",
+      "key": "valid-signed-key.json",
+      "expect": {
+        "valid": true,
+        "checks": { "schema": "passed", "contentHash": "passed", "ledgerHash": "passed", "signatures": ["passed"] }
+      },
+      "note": "Reference signed envelope (instance key). Full local verify must pass."
+    },
+    {
+      "file": "valid-with-provenance.json",
+      "kind": "cryptographic",
+      "key": "valid-with-provenance-key.json",
+      "expect": {
+        "valid": true,
+        "checks": { "schema": "passed", "contentHash": "passed", "ledgerHash": "passed", "signatures": ["passed"] }
+      },
+      "note": "ADR-0002: a signed envelope carrying executionProvenance verifies end-to-end."
+    },
+    {
+      "file": "tampered-provenance.json",
+      "kind": "cryptographic",
+      "key": "valid-with-provenance-key.json",
+      "expect": {
+        "valid": false,
+        "checks": { "schema": "passed", "contentHash": "passed", "ledgerHash": "failed", "signatures": ["failed"] }
+      },
+      "note": "ADR-0002 granular failure profile: provenance mutated AFTER signing fails ledgerHash + signature, NOT schema. This is the normative distinction the domain rule guarantees."
+    },
+    {
+      "file": "valid-minimal.json",
+      "kind": "canonical-hash",
+      "expect": {
+        "schema": "passed",
+        "contentValueHash": "00e0ba9a15ab56bd3a27c2829910511c9e50a0fc6b62d7e27da4d87a7acd86de"
+      },
+      "note": "The stored content.hash is a representational placeholder; what is normative is that sha256(canonicalize(content.value)) is deterministic across implementations."
+    },
+    {
+      "file": "valid-whitespace-mutation.json",
+      "kind": "canonical-equivalence",
+      "reference": "valid-minimal.json",
+      "note": "Whitespace + key-order mutation of valid-minimal must canonicalize byte-identically (RFC 8785 JCS)."
+    },
+    {
+      "file": "invalid-canonical-sort.json",
+      "kind": "structural-unsorted",
+      "note": "Root keys are deliberately NOT in UTF-16 lexicographic order: proves a conforming verifier must canonicalize before hashing rather than trust source byte order."
+    },
+    {
+      "file": "invalid-number-format.json",
+      "kind": "schema-invalid",
+      "expect": { "errorContains": "alignment.policy.version" },
+      "note": "alignment.policy.version is a JSON number (3.0) where the schema requires a string; shape validation must reject it."
+    }
+  ]
+}
