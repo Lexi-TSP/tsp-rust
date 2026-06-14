@@ -1,3 +1,11 @@
+> ## ⚠️ TSP public alpha preview
+>
+> This repository contains historical TSP alpha-preview materials. It is not a final TSP release, is not certified for production use, and does not grant any right to claim TSP compatibility, TSP certification, TrustBadge authorization, or participation in the official TSP integrity domain.
+>
+> TSP v3.1+ is governed by the LexiCo TSP License and official conformance process.
+
+<!-- tsp-alpha-banner:end -->
+
 # tsp-verify — Rust port of the TSP reference verifier core
 
 Verify [Trust Standard Protocol](https://truststandardprotocol.com) v3.0
