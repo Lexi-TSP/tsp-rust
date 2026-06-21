@@ -1,4 +1,4 @@
-> ## ✓ TSP v3.0 public preview — conformant
+> ## ✓ TSP v3.0 public preview — passes the published conformance suite
 >
 > This repository passes the published TSP v3.0 conformance suite (23/23 vectors, checksum-pinned fixtures), verified across the JS, Python, Go, and Rust verifier cores with identical verdicts.
 >
