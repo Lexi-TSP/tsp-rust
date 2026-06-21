@@ -1,6 +1,6 @@
-# DEPRECATED — TSP v3.0 public alpha preview
+# Historical license boundary — TSP v3.0 public preview
 
-**Status: deprecated public preview. Not certified for production.**
+**Status: TSP v3.0 public preview — not certified for production. License boundary below.**
 
 This repository/package contains materials from the **TSP v3.0 alpha / public
 preview**. Read this before relying on anything here.
