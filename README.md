@@ -1,8 +1,8 @@
-> ## ⚠️ TSP public alpha preview
+> ## ✓ TSP v3.0 public preview — conformant
 >
-> This repository contains historical TSP alpha-preview materials. It is not a final TSP release, is not certified for production use, and does not grant any right to claim TSP compatibility, TSP certification, TrustBadge authorization, or participation in the official TSP integrity domain.
+> This repository passes the published TSP v3.0 conformance suite (23/23 vectors, checksum-pinned fixtures), verified across the JS, Python, Go, and Rust verifier cores with identical verdicts.
 >
-> TSP v3.1+ is governed by the LexiCo TSP License and official conformance process.
+> Production certification and TSP-compatibility claims remain governed by the LexiCo TSP License and the official conformance process.
 
 <!-- tsp-alpha-banner:end -->
 
