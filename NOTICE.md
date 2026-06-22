@@ -1,6 +1,6 @@
 # NOTICE — Trust Standard Protocol (TSP)
 
-Copyright © 2026 LexiCo AS (Norway). "TSP", "Trust Standard Protocol",
+Copyright © 2026 LexiCo AS, Norway. "TSP", "Trust Standard Protocol",
 "TrustEnvelope", "TrustBadge", "TSP-compatible", "TSP-certified", "LexiTSP", and
 "LexiCo" are marks of LexiCo AS.
 
