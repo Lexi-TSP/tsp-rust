@@ -1,8 +1,19 @@
+<!-- tsp-historical-alpha-archive -->
+> [!IMPORTANT]
+> **Historical Alpha Archive**
+>
+> This repository is a historical TSP alpha-preview archive.
+>
+> It is not the current official Trust Standard Protocol release and is preserved for transparency.
+>
+> This repository grants **NO production issuance rights**, **NO TrustBadge authorization**, and **NO Official TSP Conformance Attestation**.
+>
+> Current doctrine and release status: https://truststandardprotocol.com
 > ## ✓ TSP v3.0 public preview — passes the published conformance suite
 >
 > This repository passes the published TSP v3.0 conformance suite (23/23 vectors, checksum-pinned fixtures), verified across the JS, Python, Go, and Rust verifier cores with identical verdicts.
 >
-> Production certification and TSP-compatibility claims remain governed by the LexiCo TSP License and the official conformance process.
+> Production conformance attestation and TSP-compatibility claims remain governed by the LexiCo TSP License and the official conformance process.
 
 <!-- tsp-alpha-banner:end -->
 
@@ -68,3 +79,4 @@ tsp-spec's online vectors; an online port follows. Local-only caveat:
 online-mode property.
 
 Trust is not earned. It is given — to what can be verified.
+
